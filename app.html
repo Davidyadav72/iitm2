@@ -66,48 +66,103 @@
         button:hover {
             background-color: #45a049;
         }
+        .pay-with {
+            margin-top: 10px;
+        }
+        .pay-with div {
+            padding: 10px;
+            margin: 5px 0;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .pay-with div:hover {
+            background: #e6e6e6;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Make a Payment</h2>
-        <form action="/make_payment" method="POST">
-            <div class="payment-method">
-                <label for="method">Select Payment Method:</label>
-                <select id="method" name="method" onchange="showPaymentOptions()">
-                    <option value="none">Choose a payment method</option>
-                    <option value="upi">UPI</option>
-                </select>
-            </div>
+        <div class="payment-method">
+            <label for="method">Select Payment Method:</label>
+            <select id="method" onchange="showPaymentOptions()">
+                <option value="none">Choose a payment method</option>
+                <option value="hdfc-credit">HDFC Bank Credit Card</option>
+                <option value="hdfc-debit">HDFC Bank Debit Card</option>
+                <option value="other-credit">Other Bank Credit Card</option>
+                <option value="other-debit">Other Bank Debit Card</option>
+                <option value="netbanking">Net Banking</option>
+                <option value="upi">UPI</option>
+            </select>
+        </div>
 
-            <!-- UPI Options -->
-            <div id="upi-options" class="upi-options">
-                <label>
-                    <input type="radio" name="upi-method" value="phonepe" onclick="setUPIMethod('PhonePe')"> PhonePe
-                </label>
-                <label for="upi-id">Enter Your UPI ID:</label>
-                <input type="text" id="upi-id" name="upi_id" placeholder="Enter your UPI ID (e.g., yourname@upi)" required>
-            </div>
+        <!-- UPI Options -->
+        <div id="upi-options" class="upi-options">
+            <label>
+                <input type="radio" name="upi-method" value="googlepay" onclick="setUPIMethod('Google Pay')"> Google Pay
+            </label>
+            <label>
+                <input type="radio" name="upi-method" value="phonepe" onclick="setUPIMethod('PhonePe')"> PhonePe
+            </label>
+            <label for="upi-id">Add UPI ID:</label>
+            <input type="text" id="upi-id" placeholder="Enter your UPI ID (e.g., yourname@upi)">
+            <button onclick="verifyUPI()">Verify UPI ID</button>
+        </div>
 
-            <!-- Proceed to Pay Button -->
-            <button type="submit">Proceed to Pay ₹30</button>
-        </form>
+        <!-- Continue Button -->
+        <button id="pay-btn" onclick="makePayment()" disabled>Proceed to Pay ₹30</button>
     </div>
 
     <script>
+        let selectedMethod = '';
+        let isUPIVerified = false;
+
         function showPaymentOptions() {
             const method = document.getElementById('method').value;
             const upiOptions = document.getElementById('upi-options');
+            const payButton = document.getElementById('pay-btn');
 
             if (method === 'upi') {
                 upiOptions.style.display = 'block';
+                payButton.disabled = true; // Disable until UPI is verified
             } else {
                 upiOptions.style.display = 'none';
+                isUPIVerified = false;
+                payButton.disabled = false; // Enable for other methods
             }
         }
 
         function setUPIMethod(method) {
             selectedMethod = method;
+        }
+
+        function verifyUPI() {
+            const upiID = document.getElementById('upi-id').value.trim();
+            if (upiID === '') {
+                alert('Please enter a valid UPI ID.');
+                return;
+            }
+            if (!upiID.includes('@')) {
+                alert('Invalid UPI ID format. Please try again.');
+                return;
+            }
+            isUPIVerified = true;
+            alert('UPI ID verified successfully!');
+            document.getElementById('pay-btn').disabled = false;
+        }
+
+        function makePayment() {
+            if (selectedMethod === 'Google Pay') {
+                window.location.href = `upi://pay?pa=9369179899@ibl&pn=Payment&am=30&cu=INR`;
+            } else if (selectedMethod === 'PhonePe') {
+                window.location.href = `upi://pay?pa=9369179899@ibl&pn=Payment&am=30&cu=INR`;
+            } else if (!isUPIVerified && selectedMethod === 'upi') {
+                alert('Please verify your UPI ID first.');
+            } else {
+                alert('Payment method selected: ' + selectedMethod);
+            }
         }
     </script>
 </body>
