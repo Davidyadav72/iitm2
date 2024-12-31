@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Official website of Sir SunderLal Hospital, IMS, BHU">
+    <title>Sir SunderLal Hospital</title>
+    <style>
+        /* General Reset */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Fullscreen Background Section */
+        .photo-section {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Slideshow Images */
+        .photo-section .slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 1;
+        }
+
+        /* Active Image */
+        .photo-section .active {
+            opacity: 1;
+        }
+
+        /* Medium Blue Background Over Image */
+        .photo-section .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(70, 130, 180, 0.5); /* Medium Blue */
+            z-index: 2; /* Ensure overlay is above the image */
+        }
+
+        /* Main Text Styling */
+        .photo-content {
+            position: relative;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            width: 90%;
+            padding: 25px 40px;
+            border: 6px solid white;
+            border-radius: 10px;
+            background: transparent;
+            margin-top: -70px;
+            z-index: 3;
+        }
+
+        .photo-content .primary-text {
+            line-height: 1.4;
+        }
+
+        .primary-text .line1 {
+            font-size: 2.5rem;
+        }
+
+        .primary-text .line2 {
+            font-size: 2rem;
+        }
+
+        /* Simple Text Link for Services */
+        .services-link {
+            margin-top: 10px;
+            display: block;
+            font-size: 1.2rem;
+            color: white;
+            text-decoration: underline;
+            z-index: 3;
+        }
+
+        .services-link:hover {
+            text-decoration: none;
+        }
+
+        /* Mobile Responsive Adjustments */
+        @media (max-width: 768px) {
+            .photo-content {
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
+                border-radius: 0;
+                padding: 15px 10px;
+                margin: 0 0 30px 0;
+            }
+
+            .primary-text .line1 {
+                font-size: 1.8rem;
+            }
+
+            .primary-text .line2 {
+                font-size: 1.5rem;
+            }
+
+            .services-link {
+                font-size: 1rem;
+            }
+        }
+
+        /* Image Section Styles */
+        .image-container {
+            display: flex;
+            flex-wrap: wrap; /* Allow images to wrap on smaller screens */
+            justify-content: center;
+            gap: 20px; /* Increased gap between images */
+            margin-top: 40px; /* Space between slideshow and image gallery */
+            padding: 10px 0;
+        }
+
+        .image-container img {
+            max-width: 100%; /* Ensure images fit the container */
+            height: auto;
+            display: block;
+            border-radius: 10px; /* Slight rounded corners for images */
+            transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease; /* Smooth transitions */
+        }
+
+        /* Add effects on hover */
+        .image-container img:hover {
+            transform: scale(1.05); /* Slight zoom effect */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Shadow around the image */
+            filter: brightness(1.1); /* Slight increase in brightness */
+        }
+
+        /* Mobile screens: Stack images vertically */
+        @media (max-width: 768px) {
+            .image-container {
+                flex-direction: column; /* Arrange images vertically on mobile */
+            }
+
+            .image-container img {
+                width: 100%; /* Full width for each image on mobile */
+            }
+        }
+
+        /* Larger screens (computers): Arrange images horizontally */
+        @media (min-width: 769px) {
+            .image-container img {
+                width: 23%; /* Each image takes up 23% of the screen width on computers */
+            }
+        }
+
+        /* New Section Styles */
+        .photo-section.secondary {
+            height: 60vh;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .secondary .overlay {
+            background: rgba(0, 0, 0, 0.6); /* Dark overlay */
+        }
+
+        .secondary .text-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .secondary .text-content h2 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .secondary .text-content p {
+            margin: 10px 0 0;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Photo Section (Slideshow and Text) -->
+    <section class="photo-section">
+        <div class="slideshow" style="background-image: url('7dgz3cxg.png');"></div>
+        <div class="slideshow" style="background-image: url('ixyzke6l.png');"></div>
+        <div class="slideshow" style="background-image: url('Sir-Sunderlal-Hospital-BHU.jpg');"></div>
+        <div class="overlay"></div>
+        <div class="photo-content">
+            <div class="primary-text">
+                <div class="line1">Sir SunderLal</div>
+                <div class="line2">Hospital, IMS, BHU</div>
+            </div>
+        </div>
+        <a href="#" class="services-link">See Services</a>
+    </section>
+
+    <!-- Image Section -->
+    <div class="image-container">
+        <a href="templates/home.html">
+            <img src="Annotation 2024-12-29 1458001.png" alt="Image 1" style="cursor: pointer;">
+        </a>
+        <img src="Annotation 2024-12-29 1458002.png" alt="Image 2">
+        <img src="Annotation 2024-12-29 1458003.png" alt="Image 3">
+        <img src="Annotation 2024-12-29 1458004.png" alt="Image 4">
+    </div>
+
+    <script>
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slideshow');
+        const totalSlides = slides.length;
+
+        function showSlides() {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[slideIndex].classList.add('active');
+            slideIndex = (slideIndex + 1) % totalSlides;
+        }
+
+        setInterval(showSlides, 2000);
+        showSlides();
+    </script>
+    <p>.</p>
+</body>
+</html>
