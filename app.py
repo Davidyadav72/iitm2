@@ -25,9 +25,8 @@ def create_tables():
 
 # Home page route
 @app.route('/')
-@app.route('/home')
 def index():
-    return render_template('index.html')
+    return render_template('app.html')  # This will reference app.html
 
 # About page route
 @app.route('/about')
@@ -55,6 +54,22 @@ def contact():
 
     return render_template('contact.html')
 
+# Payment page route
+@app.route('/make_payment', methods=['POST'])
+def make_payment():
+    # Extract UPI ID (This can be processed if needed)
+    upi_id = request.form.get('upi_id')
+    
+    if not upi_id:
+        return "UPI ID is required", 400
+
+    # In a real-world scenario, you would integrate with the payment gateway for verification
+    # For now, we'll just simulate redirection to PhonePe
+    upi_link = f"upi://pay?pa=9369179899@ibl&pn=David%20Yadav&am=30&cu=INR&tid=1234567890&url=https://www.yourpaymenturl.com"
+    
+    # Redirect to the UPI app (PhonePe or any UPI app installed on the user's device)
+    return redirect(upi_link)
+
 if __name__ == '__main__':
     create_tables()  # Ensure the table is created before running the app
-    app.run(debug
+    app.run(debug=True)
